@@ -2,20 +2,34 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AssemblyName>Sigo.Auth.Api</AssemblyName>
+        <RootNamespace>Sigo.Auth.Api</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="IdentityServer4" Version="4.1.1" />
-      <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.1.1" />
-      <PackageReference Include="IdentityServer4.EntityFramework" Version="4.1.1" />
+      <PackageReference Include="IdentityModel" Version="5.1.0" />
+      <PackageReference Include="IdentityServer4" Version="4.1.2" />
+      <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.1.4" />
+      <PackageReference Include="IdentityServer4.EntityFramework" Version="4.1.2" />
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="3.1.13" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.13" />
+      <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.13" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.13" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.13" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.13" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13" />
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
-      <PackageReference Include="MySql.Data" Version="8.0.23" />
-      <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
+      <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.9.0" />
+      <PackageReference Include="Microsoft.IdentityModel.Logging" Version="6.9.0" />
+      <PackageReference Include="Microsoft.IdentityModel.Protocols" Version="6.9.0" />
+      <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.9.0" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.9.0" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+      <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.4" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.9.0" />
+      <PackageReference Include="System.Security.Cryptography.Cng" Version="5.0.0" />
+      <PackageReference Include="System.Text.Encodings.Web" Version="5.0.1" />
     </ItemGroup>
 
 </Project>
