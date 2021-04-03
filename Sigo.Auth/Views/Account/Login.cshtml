@@ -3,7 +3,6 @@
 <div class="login-page">
     <div class="lead">
         <h1>Login</h1>
-        <p>Choose how to login</p>
     </div>
 
     <partial name="_ValidationSummary" />
@@ -15,7 +14,7 @@
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Local Account</h2>
+                        <h2>SIGO</h2>
                     </div>
 
                     <div class="card-body">
@@ -23,12 +22,12 @@
                             <input type="hidden" asp-for="ReturnUrl" />
 
                             <div class="form-group">
-                                <label asp-for="Username"></label>
-                                <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
+                                <label asp-for="Username">Usuário</label>
+                                <input class="form-control" placeholder="Usuário" asp-for="Username" autofocus>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Password"></label>
-                                <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                                <label asp-for="Password">Senha</label>
+                                <input type="password" class="form-control" placeholder="Senha" asp-for="Password" autocomplete="off">
                             </div>
                             @if (Model.AllowRememberLogin)
                             {
@@ -36,14 +35,13 @@
                                     <div class="form-check">
                                         <input class="form-check-input" asp-for="RememberLogin">
                                         <label class="form-check-label" asp-for="RememberLogin">
-                                            Remember My Login
+                                            Lembrar credenciais
                                         </label>
                                     </div>
                                 </div>
                             }
                             <button class="btn btn-primary" name="button" value="login">Login</button>
-                            <button class="btn btn-secondary" name="button" value="cancel">Cancel</button>
-                        </form>
+                            </form>
                     </div>
                 </div>
             </div>

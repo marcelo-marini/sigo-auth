@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
-using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -22,11 +20,11 @@ namespace Sigo.Auth.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ApiResourceSecrets = configuration.GetSection("ApiResourceSecrets");
+            SeedConfigurations = configuration.GetSection("SeedConfigurations");
         }
 
         private IConfiguration Configuration { get; }
-        public static IConfiguration ApiResourceSecrets { get; private set; }
+        public static IConfiguration SeedConfigurations { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -40,6 +38,8 @@ namespace Sigo.Auth.Api
                     options.Events.RaiseInformationEvents = true;
                     options.Events.RaiseFailureEvents = true;
                     options.Events.RaiseSuccessEvents = true;
+                    options.UserInteraction.LoginUrl = "/Account/Login";
+                    options.UserInteraction.LogoutUrl = "/Account/Logout";
                 })
                 .AddDeveloperSigningCredential();
 
@@ -70,8 +70,7 @@ namespace Sigo.Auth.Api
                     options.ConfigureDbContext = builder =>
                         builder.UseMySql(connectionString,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
-                    options.EnableTokenCleanup = true;
-                    options.TokenCleanupInterval = 30;
+                     options.EnableTokenCleanup = true;
                 })
                 .AddAspNetIdentity<ApplicationUser>();
         }

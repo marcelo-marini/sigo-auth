@@ -8,9 +8,9 @@ namespace Sigo.Auth.Api.Quickstart.Account
 {
     public class LoginInputModel
     {
-        [Required]
+        [Required(ErrorMessage = "Usuário é obrigatório")]
         public string Username { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Senha é obrigatória")]
         public string Password { get; set; }
         public bool RememberLogin { get; set; }
         public string ReturnUrl { get; set; }

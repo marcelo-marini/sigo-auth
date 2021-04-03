@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using IdentityModel;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Sigo.Auth.Api.Models;
 
 namespace Sigo.Auth.Api.Data
@@ -16,9 +16,20 @@ namespace Sigo.Auth.Api.Data
                 new ApplicationUser
                 {
                     Id = "1",
-                    UserName = "marcelo@indtexbr.com",
-                    NormalizedUserName = "marcelo@indtexbr.com",
-                    PasswordHash = Hasher.HashPassword(null, "123456"),
+                    UserName = Startup.SeedConfigurations
+                        .GetSection("ApplicationUsers")
+                        .GetSection("User1")
+                        .GetValue<string>("UserName"),
+                    
+                    NormalizedUserName = Startup.SeedConfigurations
+                        .GetSection("ApplicationUsers")
+                        .GetSection("User1")
+                        .GetValue<string>("NormalizedUserName"),
+                    
+                    PasswordHash = Hasher.HashPassword(null,Startup.SeedConfigurations
+                        .GetSection("ApplicationUsers")
+                        .GetSection("User1")
+                        .GetValue<string>("Password"))
                 }
             };
 

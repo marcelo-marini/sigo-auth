@@ -15,6 +15,6 @@ namespace Sigo.Auth.Api.Quickstart.Account
         public static bool ShowLogoutPrompt = true;
         public static bool AutomaticRedirectAfterSignOut = true; // set true if you want to auto redirect
 
-        public static string InvalidCredentialsErrorMessage = "Invalid username or password";
+        public static string InvalidCredentialsErrorMessage = "Usuário ou senha inválidos.";
     }
 }
