@@ -10,10 +10,10 @@ WORKDIR /src
 COPY . "Sigo.Auth/"
 WORKDIR "/src/Sigo.Auth"
 RUN dotnet restore "Sigo.Auth.csproj"
-RUN dotnet build "Sigo.Auth.Api.csproj" -c Release -o /app/build
+RUN dotnet build "Sigo.Auth.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Sigo.Auth.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "Sigo.Auth.csproj" -c Release -o /app/publish
 
 FROM base AS final
 
@@ -22,4 +22,4 @@ STOPSIGNAL SIGINT
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENTRYPOINT ["dotnet", "Sigo.Auth.Api.dll"]
+ENTRYPOINT ["dotnet", "Sigo.Auth.dll"]
