@@ -246,6 +246,3 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /Sigo.Auth.sln
-
-# IndentityServer
-tempkey.jwk
