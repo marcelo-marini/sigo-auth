@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using IdentityServer4.Configuration;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Builder;
@@ -17,9 +19,11 @@ namespace Sigo.Auth.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IWebHostEnvironment _env;
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
             SeedConfigurations = configuration.GetSection("SeedConfigurations");
         }
 
@@ -33,15 +37,19 @@ namespace Sigo.Auth.Api
             services.AddControllersWithViews();
 
             var identityServer = services.AddIdentityServer(options =>
-                {
-                    options.Events.RaiseErrorEvents = true;
-                    options.Events.RaiseInformationEvents = true;
-                    options.Events.RaiseFailureEvents = true;
-                    options.Events.RaiseSuccessEvents = true;
-                    options.UserInteraction.LoginUrl = "/Account/Login";
-                    options.UserInteraction.LogoutUrl = "/Account/Logout";
-                })
-                .AddDeveloperSigningCredential();
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+                options.UserInteraction.LoginUrl = "/Account/Login";
+                options.UserInteraction.LogoutUrl = "/Account/Logout";
+            });
+
+            if (_env.IsDevelopment())
+                identityServer.AddDeveloperSigningCredential();
+            else
+                identityServer.AddSigningCredential("7EB1985A1AD6B89D0535E33E7E0F048F9AF2FABF", StoreLocation.CurrentUser, NameType.Thumbprint);
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
@@ -70,7 +78,7 @@ namespace Sigo.Auth.Api
                     options.ConfigureDbContext = builder =>
                         builder.UseMySql(connectionString,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
-                     options.EnableTokenCleanup = true;
+                    options.EnableTokenCleanup = true;
                 })
                 .AddAspNetIdentity<ApplicationUser>();
         }
