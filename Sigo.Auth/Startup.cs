@@ -100,10 +100,7 @@ namespace Sigo.Auth.Api
 
             if (serviceScope == null) return;
 
-            serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
-
             var configurationDbContext = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
-            configurationDbContext.Database.Migrate();
 
             if (!configurationDbContext.Clients.Any())
             {
