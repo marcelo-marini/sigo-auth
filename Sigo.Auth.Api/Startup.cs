@@ -1,8 +1,3 @@
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using IdentityServer4.Configuration;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using Microsoft.AspNetCore.Builder;
@@ -14,16 +9,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Sigo.Auth.Api.Data;
 using Sigo.Auth.Api.Models;
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace Sigo.Auth.Api
 {
     public class Startup
     {
-        private IWebHostEnvironment _env;
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _env = env;
             SeedConfigurations = configuration.GetSection("SeedConfigurations");
         }
 
@@ -44,12 +40,7 @@ namespace Sigo.Auth.Api
                 options.Events.RaiseSuccessEvents = true;
                 options.UserInteraction.LoginUrl = "/Account/Login";
                 options.UserInteraction.LogoutUrl = "/Account/Logout";
-            });
-
-            if (_env.IsDevelopment())
-                identityServer.AddDeveloperSigningCredential();
-            else
-                identityServer.AddSigningCredential("7EB1985A1AD6B89D0535E33E7E0F048F9AF2FABF", StoreLocation.CurrentUser, NameType.Thumbprint);
+            }).AddDeveloperSigningCredential();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),
@@ -79,6 +70,7 @@ namespace Sigo.Auth.Api
                         builder.UseMySql(connectionString,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
                     options.EnableTokenCleanup = true;
+                    options.TokenCleanupInterval = 30;
                 })
                 .AddAspNetIdentity<ApplicationUser>();
         }
