@@ -110,7 +110,7 @@ namespace Sigo.Auth.Api
             app.UseCookiePolicy(new CookiePolicyOptions
             {
 
-                MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Lax
+                MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Unspecified
             });
 
             app.UseIdentityServer();
