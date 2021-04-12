@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Sigo.Auth.Api.Models;
 
 namespace Sigo.Auth.Api.Quickstart.Account
@@ -36,7 +37,8 @@ namespace Sigo.Auth.Api.Quickstart.Account
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
-        private readonly UserManager<ApplicationUser> _userManager;             
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IConfiguration _configuration;
 
 
         public AccountController(
@@ -45,7 +47,8 @@ namespace Sigo.Auth.Api.Quickstart.Account
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
             UserManager<ApplicationUser> userManager,
-            TestUserStore users = null
+            IConfiguration configuration,
+        TestUserStore users = null
            )
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
@@ -57,6 +60,7 @@ namespace Sigo.Auth.Api.Quickstart.Account
             _schemeProvider = schemeProvider;
             _events = events;
             _userManager = userManager;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -242,6 +246,10 @@ namespace Sigo.Auth.Api.Quickstart.Account
             return View();
         }
 
+        public IActionResult RedirectToHome()
+        {
+          return  Redirect(_configuration.GetSection("https://sigo-tcc-marini.azurewebsites.net").Value);
+        }
 
         /*****************************************/
         /* helper APIs for the AccountController */
